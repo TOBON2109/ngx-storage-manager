@@ -1,11 +1,8 @@
-name: Deploy Showcase to GitHub Pages
+name: CI and Deploy Showcase
 
 on:
   push:
     branches: [main]
-    paths:
-      - 'showcase/**'
-      - '.github/workflows/deploy-showcase.yml'
   workflow_dispatch:
 
 permissions:
@@ -18,7 +15,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Pruebas unitarias con cobertura (100%)
+        run: npx ng test ngx-storage-manager --no-watch --coverage
+
+      - name: Compilar la librería
+        run: npx ng build ngx-storage-manager
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -49,3 +65,17 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar que la app responde después del despliegue
+        run: |
+          URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          echo "Verificando $URL"
+          curl --fail --silent --show-error --location \
+            --retry 10 --retry-delay 15 --retry-all-errors \
+            --output page.html "$URL"
+          grep -qi "<app-root" page.html
+          echo "OK: la aplicación está disponible y responde"
