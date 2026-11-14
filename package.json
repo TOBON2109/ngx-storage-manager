@@ -1,27 +1,36 @@
-$pkg = @'
 {
-  "name": "@tobon/ngx-storage-manager",
-  "version": "1.0.0",
-  "description": "Librería Angular para gestionar LocalStorage y Cache Storage con una API tipada y sencilla.",
-  "keywords": ["angular", "localstorage", "cache-storage", "storage", "ngx"],
-  "author": "Juan Esteban Tobón Díaz",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TOBON2109/ngx-storage-manager.git"
+  "name": "ngx-storage-manager",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "docs": "compodoc -p projects/ngx-storage-manager/tsconfig.doc.json -d documentation"
   },
-  "homepage": "https://github.com/TOBON2109/ngx-storage-manager#readme",
-  "bugs": {
-    "url": "https://github.com/TOBON2109/ngx-storage-manager/issues"
-  },
-  "peerDependencies": {
-    "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0"
-  },
+  "private": true,
+  "packageManager": "npm@11.11.0",
   "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "devDependencies": {
+    "@angular/build": "^21.2.30",
+    "@angular/cli": "^21.2.30",
+    "@angular/compiler-cli": "^21.2.0",
+    "@compodoc/compodoc": "^2.0.0",
+    "@vitest/coverage-v8": "^4.1.12",
+    "jsdom": "^28.0.0",
+    "ng-packagr": "^21.2.0",
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
+  }
 }
-'@
-[System.IO.File]::WriteAllText("$PWD\projects\ngx-storage-manager\package.json", $pkg, (New-Object System.Text.UTF8Encoding($false)))
