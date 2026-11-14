@@ -1,9 +1,21 @@
 {
-  "name": "ngx-storage-manager",
-  "version": "0.0.1",
+  "name": "@tobon/ngx-storage-manager",
+  "version": "1.0.0",
+  "description": "Librería Angular para gestionar LocalStorage y Cache Storage con una API tipada y sencilla.",
+  "keywords": ["angular", "localstorage", "cache-storage", "storage", "ngx"],
+  "author": "Juan Esteban Tobón Díaz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TOBON2109/ngx-storage-manager.git"
+  },
+  "homepage": "https://github.com/TOBON2109/ngx-storage-manager#readme",
+  "bugs": {
+    "url": "https://github.com/TOBON2109/ngx-storage-manager/issues"
+  },
   "peerDependencies": {
-    "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
