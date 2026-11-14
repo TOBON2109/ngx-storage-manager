@@ -1,6 +1,15 @@
 # @tobon/ngx-storage-manager
 
+[![npm](https://img.shields.io/npm/v/@tobon/ngx-storage-manager)](https://www.npmjs.com/package/@tobon/ngx-storage-manager)
+[![license](https://img.shields.io/npm/l/@tobon/ngx-storage-manager)](./LICENSE)
+
 Librería Angular para gestionar **LocalStorage** y **Cache Storage** del navegador con una API sencilla, tipada y consistente, sin tener que usar directamente las APIs nativas.
+
+## Demo
+
+**Showcase en vivo:** https://tobon2109.github.io/ngx-storage-manager/
+
+Aplicación Angular independiente que instala la librería desde NPM y permite probar todas las operaciones de ambos servicios.
 
 ## Características
 
@@ -108,9 +117,33 @@ try {
 - Cache Storage solo está disponible en contextos seguros (HTTPS o `localhost`). Si no está disponible, los métodos lanzan `StorageError`.
 - Los valores de `LocalStorageService` se guardan como JSON; `undefined`, funciones y símbolos no son soportados.
 
-## Documentación técnica
+## Estructura del repositorio
 
-Generada con Compodoc: ejecuta `npm run docs` en el repositorio.
+| Carpeta | Contenido |
+| --- | --- |
+| `projects/ngx-storage-manager/` | Código fuente de la librería y sus pruebas. |
+| `showcase/` | Aplicación de demostración que consume la librería desde NPM. |
+| `documentation/` | Documentación técnica generada con Compodoc (no se sube al repo). |
+| `.github/workflows/` | Despliegue automático del Showcase en GitHub Pages. |
+
+## Desarrollo
+
+```bash
+npm install
+ng build ngx-storage-manager                      # compila la librería
+ng test ngx-storage-manager --no-watch --coverage # pruebas con cobertura (100%)
+npm run docs                                      # genera la documentación con Compodoc
+```
+
+Para ejecutar el Showcase en local:
+
+```bash
+cd showcase
+npm install
+ng serve
+```
+
+El proyecto usa [Conventional Commits](https://www.conventionalcommits.org/).
 
 ## Licencia
 
