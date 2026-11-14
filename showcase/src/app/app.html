@@ -1,0 +1,106 @@
+<main class="container">
+  <header>
+    <h1>Storage Manager Showcase</h1>
+    <p>Demostración de <code>&#64;tobon/ngx-storage-manager</code> instalada desde NPM.</p>
+  </header>
+
+  <nav class="tabs">
+    <button [class.active]="tab() === 'local'" (click)="tab.set('local')">LocalStorage</button>
+    <button [class.active]="tab() === 'cache'" (click)="tab.set('cache')">Cache Storage</button>
+  </nav>
+
+  @if (tab() === 'local') {
+    <section class="card">
+      <h2>LocalStorageService</h2>
+      <div class="row">
+        <input #lk placeholder="Clave (ej: user)" />
+        <input #lv placeholder='Valor (texto, número o JSON, ej: {"id":1})' />
+      </div>
+      <div class="row">
+        <button (click)="saveLocal(lk.value, lv.value)">set</button>
+        <button (click)="getLocal(lk.value)">get</button>
+        <button (click)="updateLocal(lk.value, lv.value)">update</button>
+        <button (click)="hasLocal(lk.value)">has</button>
+        <button class="danger" (click)="removeLocal(lk.value)">remove</button>
+        <button class="danger" (click)="clearLocal()">clear</button>
+      </div>
+
+      <h3>Claves almacenadas ({{ localKeys().length }})</h3>
+      @if (localKeys().length === 0) {
+        <p class="muted">No hay claves.</p>
+      } @else {
+        <ul>
+          @for (key of localKeys(); track key) {
+            <li>
+              <button class="link" (click)="lk.value = key; getLocal(key)">{{ key }}</button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  } @else {
+    <section class="card">
+      <h2>CacheStorageService</h2>
+      <div class="row">
+        <input #cn placeholder="Nombre del caché (ej: api-cache)" />
+      </div>
+      <div class="row">
+        <button (click)="createCache(cn.value)">createCache</button>
+        <button class="danger" (click)="deleteCache(cn.value)">deleteCache</button>
+        <button (click)="listResources(cn.value)">keys</button>
+      </div>
+
+      <div class="row">
+        <input #cu placeholder="URL del recurso (ej: /api/users)" />
+        <input #cb placeholder="Contenido de la respuesta" />
+      </div>
+      <div class="row">
+        <button (click)="putResource(cn.value, cu.value, cb.value)">put</button>
+        <button (click)="getResource(cn.value, cu.value)">get</button>
+        <button class="danger" (click)="removeResource(cn.value, cu.value)">remove</button>
+      </div>
+
+      <h3>Cachés existentes ({{ cacheNames().length }})</h3>
+      @if (cacheNames().length === 0) {
+        <p class="muted">No hay cachés.</p>
+      } @else {
+        <ul>
+          @for (name of cacheNames(); track name) {
+            <li>
+              <button class="link" (click)="cn.value = name; listResources(name)">{{ name }}</button>
+            </li>
+          }
+        </ul>
+      }
+
+      <h3>Recursos del caché ({{ resources().length }})</h3>
+      @if (resources().length === 0) {
+        <p class="muted">Pulsa "keys" o selecciona un caché.</p>
+      } @else {
+        <ul>
+          @for (url of resources(); track url) {
+            <li>{{ url }}</li>
+          }
+        </ul>
+      }
+    </section>
+  }
+
+  <section class="card">
+    <div class="row space">
+      <h2>Resultados</h2>
+      <button (click)="clearLog()">Limpiar</button>
+    </div>
+    @if (log().length === 0) {
+      <p class="muted">Aún no hay operaciones.</p>
+    } @else {
+      <ul class="log">
+        @for (entry of log(); track $index) {
+          <li [class.error]="!entry.ok">
+            <span class="time">{{ entry.time }}</span> {{ entry.text }}
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</main>
